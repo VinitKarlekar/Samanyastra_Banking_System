@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Instructions - Samanyastra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            width: 260px;
+            padding: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar .logo {
+            background: linear-gradient(to right, #007bff, #6f42c1);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .nav-link {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            color: #34495e;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .nav-link:hover {
+            background: #007bff;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar .btn-danger {
+            background: #dc3545;
+            border: none;
+        }
+
+        .sidebar .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            color: #007bff;
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar .nav-link span {
+                display: none;
+            }
+
+            .sidebar .nav-link i {
+                margin-right: 0;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flex h-screen">
+        <!-- Sidebar (Copied from Dashboard - Samanyastra) -->
+        <div class="sidebar">
+            <div class="logo">
+                <span class="text-xl font-bold">SAMANYASTRA</span>
+                <div class="text-xs mt-1 opacity-80">Vision Beyond Tomorrow</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/Dashboard" class="nav-link"><i class="fas fa-home mr-4"></i><span>Dashboard</span></a></li>
+                    <li><a href="/user_profile/" class="nav-link"><i class="fas fa-user mr-4"></i><span>Instructions</span></a></li>
+                    <li><a href="/bank_details" class="nav-link"><i class="fas fa-university mr-4"></i><span>View Bank Details</span></a></li>
+                    <li><a href="/dashboard_logout" class="nav-link btn-danger"><i class="fas fa-sign-out-alt mr-4"></i><span>Logout</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="card">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <i class="fas fa-user-circle text-gray-600 text-2xl mr-3"></i>
+                        <div>
+                            <span class="text-xl font-bold" id="greeting">Good Morning, {{ user_name }}</span>
+                            <p>We’re here to help you manage your finances securely.</p>
+                        </div>
+                    </div>
+                    <img alt="User profile picture" class="rounded-full border-2 border-gray-300" 
+                    src="{{ user_image }}" 
+                    onerror="this.onerror=null; this.src='/medias/customer_images/default.jpeg';"
+                    style="width: 100px; height: 100px;"/>               
+                </div>
+            </div>
+
+            <!-- Instructions Section -->
+            <div class="card">
+                <h2>User Instructions</h2>
+                <p>Follow these steps to get started with Samanyastra Banking:</p>
+                <div class="mt-4">
+                    <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                        <i class="fas fa-sign-in-alt text-blue-600 text-2xl mr-4"></i>
+                        <div>
+                            <h3 class="font-semibold">Step 1: Login</h3>
+                            <p>Use your Mobile Number and Password to access your account securely.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                        <i class="fas fa-tachometer-alt text-blue-600 text-2xl mr-4"></i>
+                        <div>
+                            <h3 class="font-semibold">Step 2: Explore the Dashboard</h3>
+                            <p>View your bank details and manage transactions from the Dashboard.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                        <i class="fas fa-university text-blue-600 text-2xl mr-4"></i>
+                        <div>
+                            <h3 class="font-semibold">Step 3: Register Your Bank Account</h3>
+                            <p>Go to "View Bank Details" to sign up with your Name, Address, and PAN Card Number.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                        <i class="fas fa-envelope text-blue-600 text-2xl mr-4"></i>
+                        <div>
+                            <h3 class="font-semibold">Step 4: Receive Credentials</h3>
+                            <p>Get your Bank Account Number, IFSC Code, and Password via email after registration.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Instructions in Grid -->
+            <div class="grid-container">
+                <div class="card">
+                    <h2>Manage Your Account</h2>
+                    <ul>
+                        <li class="py-2 border-b border-gray-200"><strong>Update Info:</strong> Use "Account" to edit your details.</li>
+                        <li class="py-2 border-b border-gray-200"><strong>Check Balance:</strong> Click "View Balance" to see your funds.</li>
+                        <li class="py-2 border-b border-gray-200"><strong>Transfer Funds:</strong> Use "Transfer Money" to send funds securely.</li>
+                        <li class="py-2"><strong>Track Transactions:</strong> View history under "All Transactions".</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2>Need Assistance?</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <i class="fas fa-headset text-blue-600 text-3xl mb-2"></i>
+                            <p class="font-semibold">24/7 Support</p>
+                            <p>Email: <a href="mailto:support@samanyastra.com" class="text-blue-600">support@samanyastra.com</a></p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt text-blue-600 text-3xl mb-2"></i>
+                            <p class="font-semibold">Secure Banking</p>
+                            <p>256-bit encryption ensures your safety.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setGreeting() {
+            const hour = new Date().getHours();
+            let greetingText = "Good Morning ☀️";
+            
+            if (hour >= 5 && hour < 12) {
+                greetingText = "Good Morning ☀️ Have a productive day!";
+            } else if (hour >= 12 && hour < 17) {
+                greetingText = "Good Afternoon 🌤️ Hope you're having a great day!";
+            } else if (hour >= 17 && hour < 21) {
+                greetingText = "Good Evening 🌆 Relax and unwind!";
+            } else {
+                greetingText = "Good Night 🌙 Sleep well and stay safe!";
+            }
+            document.getElementById("greeting").innerText = `${greetingText}, {{ user_name }}`;
+        }
+
+        window.onload = setGreeting;
+    </script>
+</body>
+</html>

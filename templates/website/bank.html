@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            width: 260px;
+            padding: 20px;
+            transition: width 0.3s ease;
+        }
+        .sidebar .logo {
+            background: linear-gradient(to right, #007bff, #6f42c1);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            margin-bottom: 20px;
+        }
+        .sidebar .nav-link {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            color: #34495e;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-link:hover {
+            background: #007bff;
+            color: white;
+            transform: translateX(5px);
+        }
+        .sidebar .btn-danger {
+            background: #dc3545;
+            border: none;
+        }
+        .sidebar .btn-danger:hover {
+            background: #c82333;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+        }
+    </style>
+</head>
+<body class="bg-blue-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <span class="text-xl font-bold">SAMANYASTRA</span>
+                <div class="text-xs mt-1 opacity-80">Vision Beyond Tomorrow</div>
+            </div>
+            <nav>
+                <ul class="list-none space-y-3">
+                    <li><a href="/Dashboard" class="btn btn-primary w-full">Dashboard</a></li>
+                    <li><a href="/profile_view" class="btn btn-primary w-full">Account</a></li>
+                    <li><a href="/view_balance/" class="btn btn-primary w-full">View Balance</a></li>
+                    <li><a href="/transfer_money/" class="btn btn-primary w-full">Transfer Money</a></li>
+                    <li><a href="/all_transactions/" class="btn btn-primary w-full">All Transactions</a></li>
+                    <li><a href="/bank_details" class="btn btn-primary w-full">View Bank Details</a></li>
+                    <li><a href="/acc_logout" class="btn btn-danger w-full">Bank Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div class="relative w-1/3">
+                    <input class="w-full p-2 rounded-full border border-gray-300" placeholder="Search" type="text"/>
+                    <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                </div>
+                <div class="flex items-center">
+                    <span class="mr-4">Welcome, {{ user_name }}</span>
+                    <img alt="User profile picture" class="rounded-full border-2 border-gray-300" 
+                    src="{{ user_image }}" 
+                    onerror="this.onerror=null; this.src='/medias/customer_images/default.jpeg';"
+                    style="width: 100px; height: 100px;"/>                 </div>
+            </div>
+            <!-- Bank Details -->
+            <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-6 rounded-lg shadow-md text-white">
+                <h2 class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-university mr-2"></i> Bank Details</h2>
+                <div class="grid grid-cols-2 gap-4 bg-white p-6 rounded-lg text-gray-900">
+                    <p class="border-b pb-2"><strong><i class="fas fa-hashtag text-blue-500"></i> Account Number:</strong> {{ user.account_number }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-user text-blue-500"></i> Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-phone text-blue-500"></i> Phone:</strong> {{ user.phone }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-id-card text-blue-500"></i> Aadhaar:</strong> {{ user.aadhaar }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-id-badge text-blue-500"></i> PAN:</strong> {{ user.pan }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-map-marker-alt text-blue-500"></i> Branch:</strong> {{ user.branch }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-envelope text-blue-500"></i> Email:</strong> {{ user.email }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-road text-blue-500"></i> Street:</strong> {{ user.street }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-city text-blue-500"></i> City:</strong> {{ user.city }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-flag text-blue-500"></i> State:</strong> {{ user.state }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-globe text-blue-500"></i> Country:</strong> {{ user.country }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-wallet text-blue-500"></i> Account Type:</strong> {{ user.account_type }}</p>
+                    <p class="border-b pb-2"><strong><i class="fas fa-tags text-blue-500"></i> Category:</strong> {{ user.category }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

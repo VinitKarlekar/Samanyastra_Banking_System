@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            width: 260px;
+            padding: 20px;
+            transition: width 0.3s ease;
+        }
+        .sidebar .logo {
+            background: linear-gradient(to right, #007bff, #6f42c1);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            margin-bottom: 20px;
+        }
+        .sidebar .nav-link {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            color: #34495e;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-link:hover {
+            background: #007bff;
+            color: white;
+            transform: translateX(5px);
+        }
+        .sidebar .btn-danger {
+            background: #dc3545;
+            border: none;
+        }
+        .sidebar .btn-danger:hover {
+            background: #c82333;
+        }
+        .main-content {
+            flex-grow: 1;
+            background: #eef2f7;
+            height: 100vh;  
+            overflow: auto; 
+        }
+        .update-profile-container {
+            width: 1000px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .update-profile-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .update-profile-container form .form-group {
+            display: flex;
+            gap: 10px;
+        }
+        .update-profile-container form input {
+            width: 100%;
+            display: block;
+            text-align: left;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        .update-profile-container form input:focus {
+            border-color: #007bff;
+            background: #fff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+        .update-profile-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .update-profile-btn:hover {
+            background-color: #0056b3;
+        }
+        .back-to-profile {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #007bff;
+            font-size: 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-to-profile:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .update-profile-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex">
+    <div class="sidebar">
+        <div class="logo">
+            <span class="text-xl font-bold">SAMANYASTRA</span>
+            <div class="text-xs mt-1 opacity-80">Vision Beyond Tomorrow</div>
+        </div>
+        <nav>
+            <ul class="list-none space-y-3">
+                <li><a href="/Dashboard" class="btn btn-primary w-full">Dashboard</a></li>
+                <li><a href="/profile_view" class="btn btn-primary w-full">Account</a></li>
+                <li><a href="/view_balance/" class="btn btn-primary w-full">View Balance</a></li>
+                <li><a href="/transfer_money/" class="btn btn-primary w-full">Transfer Money</a></li>
+                <li><a href="/all_transactions/" class="btn btn-primary w-full">All Transactions</a></li>
+                <li><a href="/bank_details" class="btn btn-primary w-full">View Bank Details</a></li>
+                <li><a href="/acc_logout" class="btn btn-danger w-full">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="main-content">
+        <div class="update-profile-container">
+            <h2>Update Profile</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p><strong>Password is required every time you update your profile.</strong></p>
+                <button type="submit" class="update-profile-btn">Update</button>
+            </form>
+            <a href="{% url 'bank_details' %}" class="back-to-profile">Back to Profile</a>
+        </div>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'924c77208bad44d0',t:'MTc0MjcxNzU2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

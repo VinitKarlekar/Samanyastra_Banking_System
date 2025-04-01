@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+
+       .sidebar {
+        background: #ffffff;
+        border-right: 1px solid #e5e7eb;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        width: 260px;
+        padding: 20px;
+        transition: width 0.3s ease;
+    }
+
+    .sidebar .logo {
+        background: linear-gradient(to right, #007bff, #6f42c1);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 0 0 15px 15px;
+        margin-bottom: 20px;
+    }
+
+    .sidebar .nav-link {
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin: 5px 0;
+        transition: all 0.3s ease;
+        color: #34495e;
+        display: flex;
+        align-items: center;
+    }
+
+    .sidebar .nav-link:hover {
+        background: #007bff;
+        color: white;
+        transform: translateX(5px);
+    }
+
+    .sidebar .btn-danger {
+        background: #dc3545;
+        border: none;
+    }
+
+    .sidebar .btn-danger:hover {
+        background: #c82333;
+    }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 10px;
+            background: #eef2f7;
+            min-height: 100vh;
+            height: 100vh;  
+            overflow: auto; 
+            width: 100%;
+        }
+
+        .profile-table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 50px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .profile-table th, .profile-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .profile-table th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        .profile-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+            .profile-table {
+                width: 100%;
+            }
+        }
+        
+    </style>
+</head>
+<body class="bg-blue-100">
+    <div class="flex">
+        <div class="sidebar">
+            <div class="logo">
+                <span class="text-xl font-bold">SAMANYASTRA</span>
+                <div class="text-xs mt-1 opacity-80">Vision Beyond Tomorrow</div>
+            </div>
+            <nav>
+                <ul class="list-none space-y-3">
+                    <li><a href="/Dashboard" class="btn btn-primary w-full">Dashboard</a></li>
+                    <li><a href="/profile_view" class="btn btn-primary w-full">Account</a></li>
+                    <li><a href="/view_balance/" class="btn btn-primary w-full">View Balance</a></li>
+                    <li><a href="/transfer_money/" class="btn btn-primary w-full">Transfer Money</a></li>
+                    <li><a href="/all_transactions/" class="btn btn-primary w-full">All Transactions</a></li>
+                    <li><a href="/bank_details" class="btn btn-primary w-full">View Bank Details</a></li>
+                    <li><a href="/acc_logout" class="btn btn-danger w-full">Bank Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="main-content" style="width:100%">
+            <h2 class="text-center text-primary font-bold text-2xl">User Profile</h2>
+            {% if profile %}
+            <table class="profile-table">
+                <tr><th>Name</th><td>{{ profile.first_name }} {{ profile.last_name }}</td></tr>
+                <tr><th>Email</th><td>{{ profile.email }}</td></tr>
+                <tr><th>Phone</th><td>{{ profile.phone }}</td></tr>
+                <tr><th>Aadhaar No</th><td>{{ profile.aadhaar }}</td></tr>
+                <tr><th>PAN No</th><td>{{ profile.pan }}</td></tr>
+                <tr><th>Account No</th><td>{{ profile.account_number }}</td></tr>
+                <tr><th>Account Type</th><td>{{ profile.account_type }}</td></tr>
+                <tr><th>Branch</th><td>{{ profile.branch }}</td></tr>
+                <tr><th>IFSC Code</th><td>{{ profile.ifsc_code }}</td></tr>
+                <tr><th>Balance</th><td>₹{{ profile.balance }}</td></tr>
+                <tr><th>Address</th><td>{{ profile.street }}, {{ profile.city }}, {{ profile.state }}, {{ profile.country }}</td></tr>
+            </table>
+
+            <div class="text-center mt-4">
+                <a href="{% url 'update_profile' %}" class="btn btn-success">Update Profile</a>
+            </div>
+            {% else %}
+            <p class="text-center text-red-500">No profile found. Please <a href="{% url 'bank_login' %}" class="text-blue-600 underline">log in</a>.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

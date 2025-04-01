@@ -1,0 +1,70 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Bank Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <!-- Bootstrap CSS for compatibility -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #e303f377, #2563eb);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl w-full">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <img alt="Illustration of secure payment with a tablet, money, credit card, and bar chart" 
+                     class="w-full" 
+                     src="{% static 'banklogin.jpg' %}"/>
+            </div>
+            <div class="md:w-1/2 text-center md:text-left md:pl-8">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">Bank Login</h1>
+                {% if error %}
+                    <div class="alert alert-danger mb-4" role="alert">
+                        {{ error }}
+                    </div>
+                {% endif %}
+                <p class="text-gray-600 mb-6">
+                    Please check your email for login credentials. If you haven't received the email, check your spam folder.
+                </p>
+                <form action="/bank_login_process/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group mb-4">
+                        <label for="account_number" class="text-gray-600">Account Number</label>
+                        <input type="text" 
+                               class="form-control w-full p-3 border border-gray-300 rounded-lg" 
+                               id="account_number" 
+                               name="account_number" 
+                               placeholder="Account Number" 
+                               required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="password" class="text-gray-600">Password</label>
+                        <input type="password" 
+                               class="form-control w-full p-3 border border-gray-300 rounded-lg" 
+                               id="password" 
+                               name="password" 
+                               placeholder="Password" 
+                               required>
+                    </div>
+                    <button type="submit" 
+                            class="btn btn-primary w-full bg-pink-500 text-white p-3 rounded-lg flex items-center justify-center">
+                        <span class="mr-2">Login</span>
+                        <i class="fas fa-lock"></i>
+                    </button>
+                </form>
+                <div class="mt-4">
+                    <a href="/bank_informations" class="text-pink-500 underline mr-4">Create an account</a>
+                    <a href="/Dashboard" class="text-pink-500 underline">User Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
